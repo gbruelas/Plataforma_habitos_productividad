@@ -25,6 +25,7 @@ CREATE TABLE recuperacion_password (
     token VARCHAR(255),
     expira_token DATETIME,
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
+    ON DELETE CASCADE
 ) ENGINE = InnoDB;
 
 -- Las frecuencias comunes, como diaria, semanal, mensual y personalizada --
@@ -47,7 +48,8 @@ CREATE TABLE habitos (
     id_frecuencia INT,
     cada_cuantos_dias INT DEFAULT NULL, -- En caso de que no le sirvan los días de la semana se usa esto, para repetir el habito según la cantidad de días que indique --
     fecha_creacion DATE,
-    FOREIGN KEY (id_usuario) REFERENCES usuarios(id),
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
+    ON DELETE CASCADE,
     FOREIGN KEY (id_frecuencia) REFERENCES frecuencias(id)
 ) ENGINE = InnoDB;
 
@@ -56,7 +58,8 @@ CREATE TABLE dias_habito (
     id_habito INT,
     id_dia INT,
     PRIMARY KEY (id_habito, id_dia),
-    FOREIGN KEY (id_habito) REFERENCES habitos(id),
+    FOREIGN KEY (id_habito) REFERENCES habitos(id)
+    ON DELETE CASCADE,
     FOREIGN KEY (id_dia) REFERENCES dias(id)
 ) ENGINE = InnoDB;
 
@@ -67,6 +70,7 @@ CREATE TABLE seguimiento_habito (
     fecha DATE,
     cumplido BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (id_habito) REFERENCES habitos(id)
+    ON DELETE CASCADE
 ) ENGINE = InnoDB;
 
 CREATE TABLE metas (
@@ -75,6 +79,7 @@ CREATE TABLE metas (
     cantidad_objetivo INT,
     periodo ENUM('diario', 'semanal', 'mensual'),
     FOREIGN KEY (id_habito) REFERENCES habitos(id)
+    ON DELETE CASCADE
 ) ENGINE = InnoDB;
 
 -- Inserto los datos necesarios por el momento para el funcionamiento de la pagina --

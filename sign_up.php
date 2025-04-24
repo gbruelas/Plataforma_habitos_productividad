@@ -1,10 +1,10 @@
 <?php 
+
     session_start(); 
-    //Por si tiene iniciada una sesión obligarlo a que la cierre primero
-    if(isset($_SESSION['usuario_id'])){
-        header("Location: ./home/");
-        exit();
-    } 
+    require_once './includes/verificar_sesion.php';
+    // Si el usuario tiene una sesión iniciada debe de cerrarla primero
+    verificarSesionCerrada();
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,13 +25,13 @@
                 <h2 class="fw-bold text-dark">REGISTRARSE</h2>
                 <p class="text-muted">Ingresa tus datos para continuar</p>
 
-                <!-- Mostrar mensajes de error en el sign up-->
-                <?php if (isset($_SESSION['error_sign_up'])): ?>
+                <!-- Mostrar mensajes de error-->
+                <?php if (isset($_SESSION['error'])): ?>
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <?php echo $_SESSION['error_sign_up']; ?>
+                        <?php echo htmlspecialchars($_SESSION['error'], ENT_QUOTES, 'UTF-8'); ?>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
-                    <?php unset($_SESSION['error_sign_up']); ?>
+                    <?php unset($_SESSION['error']); ?>
                 <?php endif; ?>
 
             </div>

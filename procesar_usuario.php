@@ -6,7 +6,7 @@
         header('HTTP/1.1 403 Forbidden');
         exit('Acceso no permitido');
     }
-    define('INCLUIDO', true);
+
     require_once './includes/conexion.php';
 
     // Mostrar errores (solo en entorno de desarrollo)
@@ -24,7 +24,7 @@
         $confirm_password = $_POST['confirm_password'];
         
         if ($password !== $confirm_password) {
-            $_SESSION['error_sign_up'] = "Las contraseñas no coinciden.";
+            $_SESSION['error'] = "Las contraseñas no coinciden.";
             header("Location: sign_up.php");
             exit();
         }
@@ -36,7 +36,7 @@
             empty($_POST['password']) ||
             empty($_POST['confirm_password'])
         ) {
-            $_SESSION['error_sign_up'] = "Todos los campos deben de llenarse.";
+            $_SESSION['error'] = "Todos los campos deben de llenarse.";
             header("Location: sign_up.php");
             exit();
         }
@@ -56,7 +56,7 @@
         $verificar->execute([':correo' => $usuario]);
 
         if ($verificar->rowCount() > 0) {
-            $_SESSION['error_sign_up'] = "El correo ya esta registrado. <a href='forgot_password.php'class='text-danger'>¿Olvidaste tu contraseña?</a>";
+            $_SESSION['error'] = "El correo ya esta registrado."; // Se quito el olvidaste tu contraseña por el htmlspecialchars ya que lo pasa como texto plano
             header("Location: sign_up.php");
             exit();
         }
@@ -75,12 +75,14 @@
             ':id_rol'     => $id_rol,
         ]);
 
-        $_SESSION['usuario_registrado'] = 'Te haz registrado exitosamente. Inicia sesión.';
+        $_SESSION['exito'] = 'Te haz registrado exitosamente. Inicia sesión.';
         header("Location: login.php");
         exit();
 
     } catch (PDOException $e) {
-        // Si ocurre un error con la base de datos, lo mostramos        
-        die ("Error PDO: " . $e->getMessage());
+        // Si ocurre un error con la base de datos, lo mostramos  
+        $_SESSION['error'] = 'Error PDO: ' . $e->getMessage();
+        header("Location: sign_up.php");
+        exit();
     }
 ?>

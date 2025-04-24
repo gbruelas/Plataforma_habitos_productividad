@@ -6,7 +6,7 @@
         header('HTTP/1.1 403 Forbidden');
         exit('Acceso no permitido');
     }
-    define('INCLUIDO', true);
+
     require_once './includes/conexion.php';
     require_once './includes/secret.php';
 
@@ -19,7 +19,7 @@
 
     // En caso de saltarse la validación con HTML, volvemos a verificar con PHP que todos los campos obligatorios estén llenos
     if (empty($_POST['usuario'])) {
-        $_SESSION['error_recuperacion'] = "Debes de ingresar un correo.";
+        $_SESSION['error'] = "Debes de ingresar un correo.";
         header("Location: forgot_password.php");
         exit();
     }
@@ -68,12 +68,12 @@
     
             // Se envía el correo y se muestra un mensaje según sea el caso
             $mail->send();
-            $_SESSION["exito_recuperacion"] = "Se ha enviado un enlace de recuperación a tu correo.";
+            $_SESSION["exito"] = "Se ha enviado un enlace de recuperación a tu correo.";
         } catch (Exception $e) {
-            $_SESSION["error_recuperacion"] = "Error al enviar el correo: {$mail->ErrorInfo}.";
+            $_SESSION["error"] = "Error al enviar el correo: {$mail->ErrorInfo}.";
         }
     } else {
-        $_SESSION["error_recuperacion"] = "El correo no está registrado.";
+        $_SESSION["error"] = "El correo no está registrado.";
     }
     // Regresamos a la pagina de olvidaste tu contraseña
     header("Location: forgot_password.php");

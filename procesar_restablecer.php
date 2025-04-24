@@ -6,7 +6,7 @@
         header('HTTP/1.1 403 Forbidden');
         exit('Acceso no permitido');
     }
-    define('INCLUIDO', true);
+
     require_once './includes/conexion.php';
 
     // En caso de saltarse la validación con HTML, volvemos a verificar con PHP que todos los campos obligatorios estén llenos
@@ -15,7 +15,7 @@
         empty($_POST['password']) ||
         empty($_POST['confirm_password'])
     ) {
-        $_SESSION['error_recuperacion'] = "Todos los campos deben de llenarse.";
+        $_SESSION['error'] = "Todos los campos deben de llenarse.";
         header("Location: restablecer_password.php?token=" . urlencode($token));
         exit();
     }
@@ -26,7 +26,7 @@
 
     // Verificar que las contraseñas coincidan
     if ($password !== $confirm_password) {
-        $_SESSION["error_recuperacion"] = "Las contraseñas no coinciden.";
+        $_SESSION["error"] = "Las contraseñas no coinciden.";
         header("Location: restablecer_password.php?token=" . urlencode($token));
         exit();
     }
@@ -48,10 +48,10 @@
         $stmt = $pdo->prepare("DELETE FROM recuperacion_password WHERE id_usuario = ?");
         $stmt->execute([$id_usuario]);
 
-        $_SESSION["exito_recuperacion"] = "¡Contraseña actualizada correctamente!";
+        $_SESSION["exito"] = "¡Contraseña actualizada correctamente!";
         header("Location: login.php");
     } else {
-        $_SESSION["error_recuperacion"] = "El enlace es inválido o ha expirado.";
+        $_SESSION["exito"] = "El enlace es inválido o ha expirado.";
         header("Location: forgot_password.php");
     }
     exit();

@@ -1,10 +1,10 @@
 <?php 
+
     session_start(); 
-    //Por si tiene iniciada una sesión obligarlo a que la cierre primero
-    if(isset($_SESSION['usuario_id'])){
-        header("Location: ./home/");
-        exit();
-    } 
+    require_once './includes/verificar_sesion.php';
+    // Si el usuario tiene una sesión iniciada debe de cerrarla primero
+    verificarSesionCerrada();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,31 +25,22 @@
                 <h2 class="fw-bold text-dark">INICIAR SESIÓN</h2>
                 <p class="text-muted">Ingresa tus credenciales para continuar</p>
 
-                <!-- Mostrar mensajes de error del login-->
-                <?php if (isset($_SESSION['error_login'])): ?>
+                <!-- Mostrar mensajes de error-->
+                <?php if (isset($_SESSION['error'])): ?>
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <?php echo $_SESSION['error_login']; ?>
+                        <?php echo htmlspecialchars($_SESSION['error'], ENT_QUOTES, 'UTF-8'); ?>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
-                    <?php unset($_SESSION['error_login']); ?>
+                    <?php unset($_SESSION['error']); ?>
                 <?php endif; ?>
 
-                <!-- Mostrar mensaje de sign up exitoso -->
-                <?php if (isset($_SESSION['usuario_registrado'])): ?>
+                <!-- Mostrar mensajes de exito -->
+                <?php if (isset($_SESSION['exito'])): ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo $_SESSION['usuario_registrado']; ?>
+                        <?php echo htmlspecialchars($_SESSION['exito'], ENT_QUOTES, 'UTF-8'); ?>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
-                    <?php unset($_SESSION['usuario_registrado']); ?>
-                <?php endif; ?>
-
-                <!-- Mostrar mensaje de recuperación de contraseña exitosa -->
-                <?php if (isset($_SESSION['exito_recuperacion'])): ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo $_SESSION['exito_recuperacion']; ?>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                    <?php unset($_SESSION['exito_recuperacion']); ?>
+                    <?php unset($_SESSION['exito']); ?>
                 <?php endif; ?>
 
             </div>

@@ -1,12 +1,10 @@
 <?php
 
     session_start();
+    require_once './includes/verificar_sesion.php';
     // Si el usuario tiene una sesión iniciada debe de cerrarla primero
-    if(isset($_SESSION['usuario_id'])){
-        header("Location: ./home/");
-        exit();
-    } 
-    define('INCLUIDO', true);
+    verificarSesionCerrada();
+
     require_once './includes/conexion.php';
 
     // En caso de saltarse la validación con HTML, volvemos a verificar con PHP que todos los campos obligatorios estén llenos
@@ -30,19 +28,19 @@
             $fecha_expiracion = strtotime($recuperacion['expira_token']);
             // Se verifica si el token expiro, en caso de que si se manda el error
             if ($fecha_expiracion < time()) {
-                $_SESSION["error_recuperacion"] = "El enlace ha expirado.";
+                $_SESSION["error"] = "El enlace ha expirado.";
                 header("Location: forgot_password.php");
                 exit();
             }
         } else {
             // Si el token no se encontro en la base de datos
-            $_SESSION["error_recuperacion"] = "Token inválido.";
+            $_SESSION["error"] = "Token inválido.";
             header("Location: forgot_password.php");
             exit();
         }
     } else {
         // Si no hay ningun token en la URL
-        $_SESSION["error_recuperacion"] = "Token no proporcionado.";
+        $_SESSION["error"] = "Token no proporcionado.";
         header("Location: forgot_password.php");
         exit();
     }
@@ -67,13 +65,13 @@
                 <h2 class="fw-bold text-dark">RESTABLECER CONTRASEÑA</h2>
                 <p class="text-muted">Ingresa una contraseña nueva</p>
 
-                <!-- Mostrar mensajes de error de la recuperación-->
-                <?php if (isset($_SESSION['error_recuperacion'])): ?>
+                <!-- Mostrar mensajes de error-->
+                <?php if (isset($_SESSION['error'])): ?>
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <?php echo $_SESSION['error_recuperacion']; ?>
+                        <?php echo htmlspecialchars($_SESSION['error'], ENT_QUOTES, 'UTF-8'); ?>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
-                    <?php unset($_SESSION['error_recuperacion']); ?>
+                    <?php unset($_SESSION['error']); ?>
                 <?php endif; ?>
 
             </div>

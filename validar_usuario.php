@@ -5,7 +5,7 @@
         header('HTTP/1.1 403 Forbidden');
         exit('Acceso no permitido');
     }
-    define('INCLUIDO', true);
+
     require_once './includes/conexion.php';
 
     //Desde el formulario
@@ -26,13 +26,13 @@
             exit();
         } else {
             // Contraseña incorrecta, se redirige al login de nuevo con el error
-            $_SESSION['error_login'] = 'Contraseña incorrecta';
+            $_SESSION['error'] = 'Contraseña incorrecta';
             header("Location: login.php");
             exit();
         }
     } else {
         // Usuario no existe, se redirige al login de nuevo con el error
-        $_SESSION['error_login'] = 'Credenciales incorrectas';
+        $_SESSION['error'] = 'Credenciales incorrectas';
         header("Location: login.php");
         exit();
         }
