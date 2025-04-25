@@ -7,10 +7,6 @@
     verificarSesion();
     verificarSesionAdmin();
 
-    // Mostrar errores (solo en entorno de desarrollo)
-    ini_set('display_errors', 1);
-    error_reporting(E_ALL);
-
     // Validamos que se haya enviado un parámetro 'id' por la URL y que sea un número válido
     if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
         $_SESSION["error"] = "ID de usuario invalido";
@@ -22,7 +18,7 @@
     $id = intval($_GET['id']);
 
     try {
-        // Conectamos a la base de datos
+
         require_once '../../includes/conexion.php';
 
         /*
@@ -33,7 +29,7 @@
         $verificar->execute([':id' => $id]);
 
         if ($verificar->rowCount() === 0) {
-            $_SESSION["error"] = "Usuario no encontrado";
+            $_SESSION["error"] = "Usuario no encontrado.";
             header("Location: index.php");
             exit();  
         }

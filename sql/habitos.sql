@@ -77,9 +77,17 @@ CREATE TABLE metas (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_habito INT,
     cantidad_objetivo INT,
-    periodo ENUM('diario', 'semanal', 'mensual'),
+    id_periodo INT,
     FOREIGN KEY (id_habito) REFERENCES habitos(id)
-    ON DELETE CASCADE
+    ON DELETE CASCADE,
+    FOREIGN KEY (periodo) REFERENCES periodos(id)
+    ON DELETE CASCADE;
+) ENGINE = InnoDB;
+
+CREATE TABLE periodos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(20) NOT NULL,
+    descripcion VARCHAR(100)
 ) ENGINE = InnoDB;
 
 -- Inserto los datos necesarios por el momento para el funcionamiento de la pagina --
@@ -103,3 +111,8 @@ INSERT INTO frecuencias (nombre) VALUES
 ('Semanal'),
 ('Mensual'),
 ('Personalizada');
+
+INSERT INTO periodos (nombre, descripcion) VALUES 
+('Diario', 'Meta diaria'),
+('Semanal', 'Meta semanal'),
+('Mensual', 'Meta mensual');

@@ -118,7 +118,7 @@
 ?>
 
 <main class="content container mt-4">
-    <h1 class="text-center">Editar Usuario</h1>
+    <h1 class="text-center">Editar usuario</h1>
 
     <!-- Mostrar mensajes de error-->
     <?php if (isset($_SESSION['error'])): ?>

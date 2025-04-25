@@ -1,6 +1,9 @@
 <?php
+
     session_start();
     require_once '../../includes/verificar_sesion.php';
+
+    // Para que no puedan entrar con el enlace sin iniciar sesión
     verificarSesion();
 
     $habito = [];
@@ -111,10 +114,11 @@
     $pageTitle = "Editar hábito"; 
     $seccionActual = 'habitos';
     require_once '../../includes/header.php';
+
 ?>
 
 <main class="content container mt-4">
-    <h1 class="text-center">Editar Hábito</h1>
+    <h1 class="text-center">Editar hábito</h1>
 
     <?php if (isset($_SESSION['error'])): ?>
         <div class="alert alert-danger alert-dismissible fade show" role="alert">

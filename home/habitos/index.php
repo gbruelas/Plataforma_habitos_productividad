@@ -6,7 +6,7 @@
     verificarSesion();
 
     $seccionActual = 'habitos';
-    $pageTitle = "Mis Hábitos"; 
+    $pageTitle = "Mis hábitos"; 
 
     require_once '../../includes/header.php';
     require_once '../../includes/conexion.php';
@@ -69,7 +69,7 @@
 
 <main class="content container mt-4">
 
-    <h1 class="text-center">Mis Hábitos</h1>
+    <h1 class="text-center">Mis hábitos</h1>
 
     <nav class="navbar navbar-whitw bg-white">
     <div class="container-fluid">
@@ -105,51 +105,59 @@
         <?php unset($_SESSION['exito']); ?>
     <?php endif; ?>
 
-    <table class="table">
-    <caption>Lista de mis hábitos</caption>
-    <thead class="table-dark">
-        <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Nombre</th>
-        <th scope="col">Descripción</th>
-        <th scope="col">Frecuencia</th>
-        <th scope="col">Días específicos</th>
-        <th scope="col">Fecha de creación</th>
-        <th scope="col">Opciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        <!-- Recorremos cada hábito y generamos una fila por cada uno -->
-        <?php foreach ($habitos as $habito): ?>
+    <!-- Alert cuando no hay hábitos -->
+    <?php if (empty($habitos)): ?>
+        <div class="alert alert-info">
+            No tienes hábitos registrados aún. ¡Crea tu primer hábito!
+        </div>
+    <?php else: ?>
+
+        <table class="table">
+        <caption>Lista de mis hábitos</caption>
+        <thead class="table-dark">
             <tr>
-                <td><?= $habito['id'] ?></td>
-                <td><?= $habito['nombre_habito'] ?></td>
-                <td><?= $habito['descripcion'] ?></td>
-                <td>
-                    <?= $habito['frecuencia'] ?>
-                    <?php if ($habito['cada_cuantos_dias']): ?>
-                        (cada <?= $habito['cada_cuantos_dias'] ?> días)
-                    <?php endif; ?>
-                </td>
-                <td><?= $habito['dias_personalizados'] ?? 'N/A' ?></td>
-                <td><?= $habito['fecha_creacion'] ?></td>
-                <td>
-                <!-- Botón para editar, enviando el ID del hábito por GET -->
-                <a class="btn btn-warning text-white" href="editar_habito.php?id=<?= $habito['id'] ?>">
-                    Editar
-                </a>
-                <!-- Botón para eliminar con confirmación -->
-                <button class="btn btn-danger" 
-                    data-bs-toggle="modal" 
-                    data-bs-target="#confirmarEliminarModal"
-                    onclick="document.getElementById('btnEliminarConfirmado').href = 'eliminar_habito.php?id=<?= $habito['id'] ?>'">
-                    Eliminar
-                </button>
-                </td>
+            <th scope="col">ID</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Descripción</th>
+            <th scope="col">Frecuencia</th>
+            <th scope="col">Días específicos</th>
+            <th scope="col">Fecha de creación</th>
+            <th scope="col">Opciones</th>
             </tr>
-            <?php endforeach; ?>
-    </tbody>
-    </table>
+        </thead>
+        <tbody>
+            <!-- Recorremos cada hábito y generamos una fila por cada uno -->
+            <?php foreach ($habitos as $habito): ?>
+                <tr>
+                    <td><?= $habito['id'] ?></td>
+                    <td><?= $habito['nombre_habito'] ?></td>
+                    <td><?= $habito['descripcion'] ?></td>
+                    <td>
+                        <?= $habito['frecuencia'] ?>
+                        <?php if ($habito['cada_cuantos_dias']): ?>
+                            (cada <?= $habito['cada_cuantos_dias'] ?> días)
+                        <?php endif; ?>
+                    </td>
+                    <td><?= $habito['dias_personalizados'] ?? 'N/A' ?></td>
+                    <td><?= $habito['fecha_creacion'] ?></td>
+                    <td>
+                    <!-- Botón para editar, enviando el ID del hábito por GET -->
+                    <a class="btn btn-warning text-white" href="editar_habito.php?id=<?= $habito['id'] ?>">
+                        Editar
+                    </a>
+                    <!-- Botón para eliminar con confirmación -->
+                    <button class="btn btn-danger" 
+                        data-bs-toggle="modal" 
+                        data-bs-target="#confirmarEliminarModal"
+                        onclick="document.getElementById('btnEliminarConfirmado').href = 'eliminar_habito.php?id=<?= $habito['id'] ?>'">
+                        Eliminar
+                    </button>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+        </tbody>
+        </table>
+    <?php endif; ?>
 
     <!-- Botón flotante para agregar hábito -->
     <a href="agregar_habito.php" class="btn btn-success fab-button">
@@ -166,7 +174,7 @@
                 </div>
                 <div class="modal-body">
                     <p>¿Estás seguro de que deseas eliminar este hábito?</p>
-                    <p class="fw-bolder">¡Se eliminará todo su historial de seguimiento!</p>
+                    <p class="fw-bolder">¡Se eliminará todo su historial de seguimiento y sus metas!</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>

@@ -5,10 +5,6 @@
     // Para que no puedan entrar con el enlace sin iniciar sesión
     verificarSesion();
 
-    // Mostrar errores (solo en entorno de desarrollo)
-    ini_set('display_errors', 1);
-    error_reporting(E_ALL);
-
     // Validamos que se haya enviado un parámetro 'id' por la URL y que sea un número válido
     if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
         $_SESSION["error"] = "ID de hábito inválido";

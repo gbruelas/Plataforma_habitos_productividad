@@ -1,6 +1,9 @@
 <?php
+
     session_start();
     require_once '../../includes/verificar_sesion.php';
+
+    // Para que no puedan entrar con el enlace sin iniciar sesión
     verificarSesion();
 
     require_once '../../includes/conexion.php';
