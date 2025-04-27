@@ -80,7 +80,7 @@ CREATE TABLE metas (
     id_periodo INT,
     FOREIGN KEY (id_habito) REFERENCES habitos(id)
     ON DELETE CASCADE,
-    FOREIGN KEY (periodo) REFERENCES periodos(id)
+    FOREIGN KEY (id_periodo) REFERENCES periodos(id)
     ON DELETE CASCADE;
 ) ENGINE = InnoDB;
 

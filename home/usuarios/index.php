@@ -90,39 +90,42 @@
         <?php unset($_SESSION['exito']); ?>
     <?php endif; ?>
 
-    <table class="table">
+    <table class="table table-bordered">
     <caption>Lista de usuarios</caption>
     <thead class="table-dark">
         <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Nombre</th>
-        <th scope="col">Correo</th>
-        <th scope="col">Rol</th>
-        <th scope="col">Fecha de registro</th>
-        <th scope="col">Opciones</th>
+        <th scope="col" class="text-center col-1">ID</th>
+        <th scope="col" class="col-3">Nombre</th>
+        <th scope="col" class="col-4">Correo</th>
+        <th scope="col" class="text-center col-2">Rol</th>
+        <th scope="col" class="text-center col-2">Fecha de registro</th>
+        <th scope="col" class="text-center col-1">Opciones</th>
         </tr>
     </thead>
     <tbody>
         <!-- Recorremos cada usuario y generamos una fila por cada uno -->
         <?php foreach ($usuarios as $usuario): ?>
             <tr>
-                <td><?= $usuario['id'] ?></td>
+                <td class="text-center"><?= $usuario['id'] ?></td>
                 <td><?= $usuario['nombre_usuario'] ?></td>
                 <td><?= $usuario['correo'] ?></td>
-                <td><?= $usuario['nombre_rol'] ?></td>
-                <td><?= $usuario['fecha_registro'] ?></td>
-                <td>
+                <td class="text-center"><?= $usuario['nombre_rol'] ?></td>
+                <td class="text-center"><?= date('d/m/Y h:i:s A', strtotime($usuario['fecha_registro'])) ?></td>
+                <td class="text-center">
                 <!-- Botón para editar, enviando el ID del usuario por GET -->
-                <a class="btn btn-warning text-white" href="editar_usuario.php?id=<?= $usuario['id'] ?>">
-                    Editar
+                <a class="text-warning me-3" href="editar_usuario.php?id=<?= $usuario['id'] ?>" aria-label="Editar">
+                    <i class="bi bi-pencil-square fs-5"></i>
                 </a>
                 <!-- Botón para eliminar con confirmación -->
-                <button class="btn btn-danger" 
+                <a 
+                    href="#" 
+                    class="text-danger text-decoration-none"
                     data-bs-toggle="modal" 
                     data-bs-target="#confirmarEliminarModal"
-                    onclick="document.getElementById('btnEliminarConfirmado').href = 'eliminar_usuario.php?id=<?= $usuario['id'] ?>'">
-                    Eliminar
-                </button>
+                    onclick="document.getElementById('btnEliminarConfirmado').href = 'eliminar_usuario.php?id=<?= $usuario['id'] ?>'"
+                    aria-label="Eliminar">
+                        <i class="bi bi-trash-fill fs-5"></i>
+                </a>
                 </td>
             </tr>
             <?php endforeach; ?>
@@ -130,8 +133,8 @@
     </table>
 
     <!-- Botón flotante para agregar usuario -->
-    <a href="agregar_usuario.php" class="btn btn-success fab-button">
-        Agregar usuario
+    <a href="agregar_usuario.php" class="btn btn-success rounded-circle fab-button">
+        <i class="bi bi-plus-lg fs-4"></i>
     </a>
 
     <!-- Modal de eliminar usuario (confirmación con modal) -->

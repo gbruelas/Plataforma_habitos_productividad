@@ -17,4 +17,5 @@
 <script src="/proyecto_integrador/assets/js/header_blur.js"></script>
 <script src="/proyecto_integrador/assets/js/habitos.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="/proyecto_integrador/assets/js/grafica_historial.js"></script>
 </html>

@@ -91,34 +91,37 @@
         </div>
     <?php else: ?>
 
-        <table class="table">
+        <table class="table table-bordered">
         <caption>Lista de mis metas</caption>
         <thead class="table-dark">
             <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Hábito</th>
-                <th scope="col">Objetivo</th>
-                <th scope="col">Periodo</th>
-                <th scope="col">Opciones</th>
+                <th scope="col" class="text-center col-1">ID</th>
+                <th scope="col" class="col-3">Hábito</th>
+                <th scope="col" class="col-2">Objetivo</th>
+                <th scope="col" class="col-2">Periodo</th>
+                <th scope="col" class="text-center col-1">Opciones</th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($metas as $meta): ?>
                 <tr>
-                    <td class="w-1"><?= $meta['id'] ?></td>
+                    <td class="text-center"><?= $meta['id'] ?></td>
                     <td><?= $meta['nombre_habito'] ?></td>
                     <td><?= $meta['cantidad_objetivo'] ?> veces</td>
                     <td><?= ucfirst($meta['periodo']) ?></td>
-                    <td>
-                        <a class="btn btn-warning text-white" href="editar_meta.php?id=<?= $meta['id'] ?>">
-                            Editar
+                    <td class="text-center">
+                        <a class="text-warning me-3" href="editar_meta.php?id=<?= $meta['id'] ?>" aria-label="Editar">
+                            <i class="bi bi-pencil-square fs-5"></i>
                         </a>
-                        <button class="btn btn-danger" 
+                        <a 
+                            href="#" 
+                            class="text-danger text-decoration-none" 
                             data-bs-toggle="modal" 
                             data-bs-target="#confirmarEliminarModal"
-                            onclick="document.getElementById('btnEliminarConfirmado').href = 'eliminar_meta.php?id=<?= $meta['id'] ?>'">
-                            Eliminar
-                        </button>
+                            onclick="document.getElementById('btnEliminarConfirmado').href = 'eliminar_meta.php?id=<?= $meta['id'] ?>'"
+                            aria-label="Eliminar">
+                                <i class="bi bi-trash-fill fs-5"></i>
+                        </a>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -127,8 +130,8 @@
     <?php endif; ?>
 
     <!-- Botón flotante para agregar meta -->
-    <a href="agregar_meta.php" class="btn btn-success fab-button">
-        Agregar meta
+    <a href="agregar_meta.php" class="btn btn-success rounded-circle fab-button">
+        <i class="bi bi-plus-lg fs-4"></i>
     </a>
 
     <!-- Modal de eliminar meta -->

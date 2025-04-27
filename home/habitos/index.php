@@ -1,4 +1,5 @@
 <?php
+
     session_start();
     require_once '../../includes/verificar_sesion.php';
 
@@ -65,6 +66,7 @@
 
     // Obtenemos todos los resultados en un arreglo asociativo    
     $habitos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
 ?>
 
 <main class="content container mt-4">
@@ -112,24 +114,24 @@
         </div>
     <?php else: ?>
 
-        <table class="table">
+        <table class="table table-bordered">
         <caption>Lista de mis hábitos</caption>
         <thead class="table-dark">
             <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Descripción</th>
-            <th scope="col">Frecuencia</th>
-            <th scope="col">Días específicos</th>
-            <th scope="col">Fecha de creación</th>
-            <th scope="col">Opciones</th>
+            <th scope="col" class="text-center col-1">ID</th>
+            <th scope="col" class="col-2">Nombre</th>
+            <th scope="col" class="col-3">Descripción</th>
+            <th scope="col" class="col-2">Frecuencia</th>
+            <th scope="col" class="col-3">Días específicos</th>
+            <th scope="col" class="text-center col-2">Fecha de creación</th>
+            <th scope="col" class="text-center col-1">Opciones</th>
             </tr>
         </thead>
         <tbody>
             <!-- Recorremos cada hábito y generamos una fila por cada uno -->
             <?php foreach ($habitos as $habito): ?>
                 <tr>
-                    <td><?= $habito['id'] ?></td>
+                    <td class="text-center"><?= $habito['id'] ?></td>
                     <td><?= $habito['nombre_habito'] ?></td>
                     <td><?= $habito['descripcion'] ?></td>
                     <td>
@@ -139,19 +141,22 @@
                         <?php endif; ?>
                     </td>
                     <td><?= $habito['dias_personalizados'] ?? 'N/A' ?></td>
-                    <td><?= $habito['fecha_creacion'] ?></td>
-                    <td>
+                    <td class="text-center"><?= date('d/m/Y', strtotime($habito['fecha_creacion'])) ?></td>
+                    <td class="text-center">
                     <!-- Botón para editar, enviando el ID del hábito por GET -->
-                    <a class="btn btn-warning text-white" href="editar_habito.php?id=<?= $habito['id'] ?>">
-                        Editar
+                    <a class="text-warning me-3" href="editar_habito.php?id=<?= $habito['id'] ?>" aria-label="Editar">
+                        <i class="bi bi-pencil-square fs-5"></i>
                     </a>
                     <!-- Botón para eliminar con confirmación -->
-                    <button class="btn btn-danger" 
+                    <a
+                        href="#" 
+                        class="text-danger text-decoration-none"
                         data-bs-toggle="modal" 
                         data-bs-target="#confirmarEliminarModal"
-                        onclick="document.getElementById('btnEliminarConfirmado').href = 'eliminar_habito.php?id=<?= $habito['id'] ?>'">
-                        Eliminar
-                    </button>
+                        onclick="document.getElementById('btnEliminarConfirmado').href = 'eliminar_habito.php?id=<?= $habito['id'] ?>'"
+                        aria-label="Eliminar">
+                            <i class="bi bi-trash-fill fs-5"></i>
+                    </a>
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -160,8 +165,8 @@
     <?php endif; ?>
 
     <!-- Botón flotante para agregar hábito -->
-    <a href="agregar_habito.php" class="btn btn-success fab-button">
-        Agregar hábito
+    <a href="agregar_habito.php" class="btn btn-success rounded-circle fab-button">
+        <i class="bi bi-plus-lg fs-4"></i>
     </a>
 
     <!-- Modal de eliminar hábito (confirmación con modal) -->
