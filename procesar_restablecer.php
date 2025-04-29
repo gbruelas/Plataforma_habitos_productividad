@@ -31,6 +31,29 @@
         exit();
     }
 
+    // Validar la longitud de la contraseña
+    if (strlen($password) < 8 || strlen($password) > 20) {
+        $_SESSION['error'] = "La contraseña debe de ser de entre 8 y 20 caracteres.";
+        header("Location: restablecer_password.php?token=" . urlencode($token));
+        exit();
+    }
+
+    // Validar la complejidad de la contraseña usando expresiones regulares
+    $patrones = [
+        '/[A-Z]/' => "al menos una letra mayúscula",
+        '/[a-z]/' => "al menos una letra minúscula",
+        '/[0-9]/' => "al menos un número",
+        '/[\W_]/' => "al menos un carácter especial",
+    ];
+
+    foreach ($patrones as $patron => $falta_complejidad) {
+        if (!preg_match($patron, $password)) {
+            $_SESSION['error'] = "La contraseña debe contener $falta_complejidad";
+            header("Location: restablecer_password.php?token=" . urlencode($token));
+            exit();
+        }
+    }
+
     // Verificar si el token existe y no ha expirado
     $stmt = $pdo->prepare("SELECT id_usuario FROM recuperacion_password WHERE token = ? AND expira_token > NOW()");
     $stmt->execute([$token]);

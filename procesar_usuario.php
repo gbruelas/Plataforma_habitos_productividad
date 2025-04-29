@@ -74,9 +74,16 @@
         // Valor por defecto para el rol (usuario)        
         $id_rol = 2;
 
+        // Validar la longitud del correo
+        if (strlen($usuario) > 100) {
+            $_SESSION['error'] = "El correo no debe de tener mas de 100 caracteres.";
+            header("Location: sign_up.php");
+            exit();
+        }
+
         // Verificamos si el correo cumple con el formato de un correo
         if (!filter_var($usuario, FILTER_VALIDATE_EMAIL)) {
-            $_SESSION['error'] = "Ingresa un correo valido.";
+            $_SESSION['error'] = "Ingresa un correo válido.";
             header("Location: sign_up.php");
             exit();
         }

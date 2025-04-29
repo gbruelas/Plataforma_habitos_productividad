@@ -56,9 +56,16 @@
                 }
             }
 
+            // Validar la longitud del correo
+            if (strlen($_POST['correo']) > 100) {
+                $_SESSION['error'] = "El correo no debe de tener mas de 100 caracteres.";
+                header("Location: agregar_usuario.php");
+                exit();
+            }
+
             // Verificamos si el correo cumple con el formato de un correo
             if (!filter_var($_POST['correo'], FILTER_VALIDATE_EMAIL)) {
-                $_SESSION['error'] = "Ingresa un correo valido.";
+                $_SESSION['error'] = "Ingresa un correo válido.";
                 header("Location: agregar_usuario.php");
                 exit();
             }
