@@ -56,6 +56,13 @@
                 }
             }
 
+            // Verificamos si el correo cumple con el formato de un correo
+            if (!filter_var($_POST['correo'], FILTER_VALIDATE_EMAIL)) {
+                $_SESSION['error'] = "Ingresa un correo valido.";
+                header("Location: agregar_usuario.php");
+                exit();
+            }
+
             // Verificar si el correo ya existe
             $verificar = $pdo->prepare("SELECT id FROM usuarios WHERE correo = :correo");
             $verificar->execute([':correo' => $_POST['correo']]);

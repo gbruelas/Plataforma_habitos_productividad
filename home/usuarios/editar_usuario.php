@@ -40,6 +40,13 @@
                 exit();
             }
 
+            // Verificamos si el correo cumple con el formato de un correo
+            if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+                $_SESSION['error'] = "Ingresa un correo valido.";
+                header("Location: editar_usuario.php?id=$id");
+                exit();
+            }
+
             /*
             * Verificamos que el correo electrónico no esté en uso por otro usuario
             * con un ID distinto al actual.

@@ -74,6 +74,13 @@
         // Valor por defecto para el rol (usuario)        
         $id_rol = 2;
 
+        // Verificamos si el correo cumple con el formato de un correo
+        if (!filter_var($usuario, FILTER_VALIDATE_EMAIL)) {
+            $_SESSION['error'] = "Ingresa un correo valido.";
+            header("Location: sign_up.php");
+            exit();
+        }
+
         // Verificamos si el correo ya está registrado en la base de datos
         $verificar = $pdo->prepare("SELECT id FROM usuarios WHERE correo = :correo");
         $verificar->execute([':correo' => $usuario]);
