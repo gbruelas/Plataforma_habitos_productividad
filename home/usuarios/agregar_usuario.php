@@ -33,6 +33,29 @@
                 exit();
             }
 
+            // Validar la longitud de la contraseña
+            if (strlen($_POST['password']) < 8 || strlen($_POST['password']) > 20) {
+                $_SESSION['error'] = "La contraseña debe de ser de entre 8 y 20 caracteres.";
+                header("Location: agregar_usuario.php");
+                exit();
+            }
+
+            // Validar la complejidad de la contraseña usando expresiones regulares
+            $patrones = [
+                '/[A-Z]/' => "al menos una letra mayúscula",
+                '/[a-z]/' => "al menos una letra minúscula",
+                '/[0-9]/' => "al menos un número",
+                '/[\W_]/' => "al menos un carácter especial",
+            ];
+
+            foreach ($patrones as $patron => $falta_complejidad) {
+                if (!preg_match($patron, $_POST['password'])) {
+                    $_SESSION['error'] = "La contraseña debe contener $falta_complejidad";
+                    header("Location: agregar_usuario.php");
+                    exit();
+                }
+            }
+
             // Verificar si el correo ya existe
             $verificar = $pdo->prepare("SELECT id FROM usuarios WHERE correo = :correo");
             $verificar->execute([':correo' => $_POST['correo']]);

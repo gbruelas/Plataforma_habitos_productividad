@@ -15,6 +15,18 @@
 
     try {
 
+        // En caso de saltarse la validación con HTML, volvemos a verificar con PHP que todos los campos obligatorios estén llenos
+        if (
+            empty($_POST['nombre']) ||
+            empty($_POST['usuario']) ||
+            empty($_POST['password']) ||
+            empty($_POST['confirm_password'])
+        ) {
+            $_SESSION['error'] = "Todos los campos deben de llenarse.";
+            header("Location: sign_up.php");
+            exit();
+        }
+
         /*
         * Validación adicional de contraseñas del lado del servidor
         * Esto es importante incluso si ya se validó en el navegador con JavaScript,
@@ -29,16 +41,27 @@
             exit();
         }
 
-        // En caso de saltarse la validación con HTML, volvemos a verificar con PHP que todos los campos obligatorios estén llenos
-        if (
-            empty($_POST['nombre']) ||
-            empty($_POST['usuario']) ||
-            empty($_POST['password']) ||
-            empty($_POST['confirm_password'])
-        ) {
-            $_SESSION['error'] = "Todos los campos deben de llenarse.";
+        // Validar la longitud de la contraseña
+        if (strlen($password) < 8 || strlen($password) > 20) {
+            $_SESSION['error'] = "La contraseña debe de ser de entre 8 y 20 caracteres.";
             header("Location: sign_up.php");
             exit();
+        }
+
+        // Validar la complejidad de la contraseña usando expresiones regulares
+        $patrones = [
+            '/[A-Z]/' => "al menos una letra mayúscula",
+            '/[a-z]/' => "al menos una letra minúscula",
+            '/[0-9]/' => "al menos un número",
+            '/[\W_]/' => "al menos un carácter especial",
+        ];
+
+        foreach ($patrones as $patron => $falta_complejidad) {
+            if (!preg_match($patron, $password)) {
+                $_SESSION['error'] = "La contraseña debe contener $falta_complejidad";
+                header("Location: sign_up.php");
+                exit();
+            }
         }
 
         // Asignamos los datos del formulario a variables PHP
