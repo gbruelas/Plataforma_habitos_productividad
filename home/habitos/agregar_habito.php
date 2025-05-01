@@ -24,6 +24,20 @@
                 exit();
             }
 
+            // Validar la longitud del nombre del hábito
+            if (strlen($_POST['nombre']) > 30) {
+                $_SESSION['error'] = "El nombre del hábito no debe de ser mayor a 30 caracteres. Si deseas brindar mas detalles puedes agregarlos a la descripción.";
+                header("Location: agregar_habito.php");
+                exit();
+            }
+
+            // Validar la longitud de la descripción del hábito
+            if (strlen($_POST['descripcion']) > 150) {
+                $_SESSION['error'] = "La descripción del hábito no debe de ser mayor a 150 caracteres.";
+                header("Location: agregar_habito.php");
+                exit();
+            }
+
             $id_frecuencia = (int)$_POST['id_frecuencia'];
             $cada_cuantos_dias = null;
             $dias_seleccionados = [];

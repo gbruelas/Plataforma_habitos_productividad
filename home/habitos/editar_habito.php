@@ -30,6 +30,20 @@
                 exit();
             }
 
+            // Validar la longitud del nombre del hábito
+            if (strlen($_POST['nombre']) > 30) {
+                $_SESSION['error'] = "El nombre del hábito no debe de ser mayor a 30 caracteres. Si deseas brindar mas detalles puedes agregarlos a la descripción.";
+                header("Location: editar_habito.php?id=$id");
+                exit();
+            }
+
+            // Validar la longitud de la descripción del hábito
+            if (strlen($_POST['descripcion']) > 150) {
+                $_SESSION['error'] = "La descripción del hábito no debe de ser mayor a 150 caracteres.";
+                header("Location: editar_habito.php?id=$id");
+                exit();
+            }
+
             $nombre = $_POST['nombre'];
             $descripcion = $_POST['descripcion'];
             $id_frecuencia = $_POST['id_frecuencia'];
@@ -41,6 +55,7 @@
             if ($id_frecuencia == 4) {
                 if ($opcion_personalizada == 'dias') {
                     $dias_seleccionados = $_POST['dias'] ?? [];
+                    // Validar que se hayan seleccionado días de la semana si se eligio la opción
                     if (empty($dias_seleccionados)) {
                         $_SESSION['error'] = "Debes seleccionar al menos un día de la semana";
                         header("Location: editar_habito.php?id=$id");
@@ -48,6 +63,7 @@
                     }
                 } elseif ($opcion_personalizada == 'cada_x_dias') {
                     $cada_cuantos_dias = !empty($_POST['cada_cuantos_dias']) ? (int)$_POST['cada_cuantos_dias'] : null;
+                    // Validar que cada x días no sea menor a 1 o mayor a 365, en caso de haber elegido la opción
                     if ($cada_cuantos_dias < 1 || $cada_cuantos_dias > 365) {
                         $_SESSION['error'] = "El número de días debe ser entre 1 y 365 días";
                         header("Location: editar_habito.php?id=$id");

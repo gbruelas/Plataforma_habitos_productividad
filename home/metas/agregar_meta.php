@@ -29,6 +29,7 @@
                 exit();
             }
 
+            // Validación de número y número positivo
             if (!is_numeric($_POST['cantidad_objetivo']) || $_POST['cantidad_objetivo'] <= 0) {
                 $_SESSION['error'] = "La cantidad objetivo debe ser un número positivo.";
                 header("Location: agregar_meta.php");

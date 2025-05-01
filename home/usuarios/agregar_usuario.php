@@ -26,6 +26,13 @@
                 exit();
             }
 
+            // Validar la longitud del nombre de usuario
+            if (strlen($_POST['nombre']) > 20) {
+                $_SESSION['error'] = "El nombre de usuario no debe de ser mayor a 20 caracteres.";
+                header("Location: agregar_usuario.php");
+                exit();
+            }
+
             // Verificar coincidencia de contraseñas
             if ($_POST['password'] !== $_POST['confirm_password']) {
                 $_SESSION['error'] = "Las contraseñas no coinciden.";

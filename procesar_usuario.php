@@ -27,6 +27,13 @@
             exit();
         }
 
+        // Validar la longitud del nombre de usuario
+        if (strlen($_POST['nombre']) > 20) {
+            $_SESSION['error'] = "El nombre de usuario no debe de ser mayor a 20 caracteres.";
+            header("Location: sign_up.php");
+            exit();
+        }
+
         /*
         * Validación adicional de contraseñas del lado del servidor
         * Esto es importante incluso si ya se validó en el navegador con JavaScript,

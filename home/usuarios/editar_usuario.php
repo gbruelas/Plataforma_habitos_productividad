@@ -20,15 +20,13 @@
         */
         $roles = $pdo->query("SELECT id, nombre FROM roles")->fetchAll(PDO::FETCH_ASSOC);
 
-        /*
-        * Si se ha enviado el formulario con método POST, procesamos la edición.
-        */
+        // Si se ha enviado el formulario con método POST, procesamos la edición.
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Obtenemos los datos del formulario        
-            $id         = $_POST['id'];
-            $nombre    = $_POST['nombre'];
-            $correo     = $_POST['correo'];
-            $id_rol     = $_POST['id_rol'];
+            $id = $_POST['id'];
+            $nombre = $_POST['nombre'];
+            $correo = $_POST['correo'];
+            $id_rol = $_POST['id_rol'];
 
             // Validar campos
             if (empty($_POST['id']) || 
@@ -36,6 +34,13 @@
                 empty($_POST['correo']) || 
                 empty($_POST['id_rol'])) {
                 $_SESSION['error'] = "Todos los campos deben llenarse.";
+                header("Location: editar_usuario.php?id=$id");
+                exit();
+            }
+
+            // Validar la longitud del nombre de usuario
+            if (strlen($nombre) > 20) {
+                $_SESSION['error'] = "El nombre de usuario no debe de ser mayor a 20 caracteres.";
                 header("Location: editar_usuario.php?id=$id");
                 exit();
             }
