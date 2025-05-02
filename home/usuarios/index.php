@@ -106,11 +106,11 @@
         <!-- Recorremos cada usuario y generamos una fila por cada uno -->
         <?php foreach ($usuarios as $usuario): ?>
             <tr>
-                <td class="text-center"><?= $usuario['id'] ?></td>
-                <td><?= $usuario['nombre_usuario'] ?></td>
-                <td><?= $usuario['correo'] ?></td>
-                <td class="text-center"><?= $usuario['nombre_rol'] ?></td>
-                <td class="text-center"><?= date('d/m/Y h:i:s A', strtotime($usuario['fecha_registro'])) ?></td>
+                <td class="text-center"><?= htmlspecialchars($usuario['id'], ENT_QUOTES, 'UTF-8'); ?></td>
+                <td><?= htmlspecialchars($usuario['nombre_usuario'], ENT_QUOTES, 'UTF-8'); ?></td>
+                <td><?= htmlspecialchars($usuario['correo'], ENT_QUOTES, 'UTF-8'); ?></td>
+                <td class="text-center"><?= htmlspecialchars($usuario['nombre_rol'], ENT_QUOTES, 'UTF-8'); ?></td>
+                <td class="text-center"><?= htmlspecialchars(date('d/m/Y h:i:s A', strtotime($usuario['fecha_registro'])), ENT_QUOTES, 'UTF-8'); ?></td>
                 <td class="text-center">
                 <!-- Botón para editar, enviando el ID del usuario por GET -->
                 <a class="text-warning me-3" href="editar_usuario.php?id=<?= $usuario['id'] ?>" aria-label="Editar">

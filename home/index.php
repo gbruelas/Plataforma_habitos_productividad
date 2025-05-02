@@ -201,8 +201,8 @@
             <div class="card mb-3 shadow-sm">
                 <div class="card-body d-flex justify-content-between align-items-center">
                     <div>
-                        <h5 class="card-title mb-1"><?= $habito_del_dia['nombre'] ?></h5>
-                        <p class="card-text"><?= $habito_del_dia['descripcion'] ?></p>
+                        <h5 class="card-title mb-1"><?= htmlspecialchars($habito_del_dia['nombre'], ENT_QUOTES, 'UTF-8'); ?></h5>
+                        <p class="card-text"><?= htmlspecialchars($habito_del_dia['descripcion'], ENT_QUOTES, 'UTF-8'); ?></p>
                     </div>
                     <?php if ($habito_del_dia['cumplido']): ?>
                         <span class="badge bg-success">Completado</span>

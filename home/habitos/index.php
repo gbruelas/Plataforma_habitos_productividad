@@ -131,17 +131,17 @@
             <!-- Recorremos cada hábito y generamos una fila por cada uno -->
             <?php foreach ($habitos as $habito): ?>
                 <tr>
-                    <td class="text-center"><?= $habito['id'] ?></td>
-                    <td><?= $habito['nombre_habito'] ?></td>
-                    <td><?= $habito['descripcion'] ?></td>
+                    <td class="text-center"><?= htmlspecialchars($habito['id'], ENT_QUOTES, 'UTF-8'); ?></td>
+                    <td><?= htmlspecialchars($habito['nombre_habito'], ENT_QUOTES, 'UTF-8'); ?></td>
+                    <td><?= htmlspecialchars($habito['descripcion'], ENT_QUOTES, 'UTF-8'); ?></td>
                     <td>
-                        <?= $habito['frecuencia'] ?>
+                        <?= htmlspecialchars($habito['frecuencia'], ENT_QUOTES, 'UTF-8'); ?>
                         <?php if ($habito['cada_cuantos_dias']): ?>
-                            (cada <?= $habito['cada_cuantos_dias'] ?> días)
+                            (cada <?= htmlspecialchars($habito['cada_cuantos_dias'], ENT_QUOTES, 'UTF-8'); ?> días)
                         <?php endif; ?>
                     </td>
-                    <td><?= $habito['dias_personalizados'] ?? 'N/A' ?></td>
-                    <td class="text-center"><?= date('d/m/Y', strtotime($habito['fecha_creacion'])) ?></td>
+                    <td><?= htmlspecialchars($habito['dias_personalizados'] ?? 'N/A', ENT_QUOTES, 'UTF-8'); ?></td>
+                    <td class="text-center"><?= htmlspecialchars(date('d/m/Y', strtotime($habito['fecha_creacion'])), ENT_QUOTES, 'UTF-8'); ?></td>
                     <td class="text-center">
                     <!-- Botón para editar, enviando el ID del hábito por GET -->
                     <a class="text-warning me-3" href="editar_habito.php?id=<?= $habito['id'] ?>" aria-label="Editar">

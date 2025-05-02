@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
     * tambien oculta todos los contenedores
     */
     function actualizarCampos() {
+        if (!frecuenciaSelect) return; // Si no hay dropdown, salir para evitar errores
         const frecuenciaId = parseInt(frecuenciaSelect.value);
         opcionesPersonalizada.style.display = 'none';
         diasContainer.style.display = 'none';
@@ -32,8 +33,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Escuchan cambios en el dropdown de frecuencia y de los radio buttoms
-    frecuenciaSelect.addEventListener('change', actualizarCampos);
+    // Escuchan cambios en el dropdown de frecuencia y de los radio buttoms (solo si existe el dropdown)
+    if (frecuenciaSelect) {
+        frecuenciaSelect.addEventListener('change', actualizarCampos);
+    } 
 
     if (opcionDias && opcionCadaXDias) {
         opcionDias.addEventListener('change', actualizarCampos);

@@ -114,8 +114,8 @@
             <tbody>
                 <?php foreach ($registros as $registro): ?>
                     <tr>
-                        <td class="text-center"><?= date('d/m/Y', strtotime($registro['fecha'])) ?></td>
-                        <td><?= $registro['habito'] ?></td>
+                        <td class="text-center"><?= htmlspecialchars(date('d/m/Y', strtotime($registro['fecha'])), ENT_QUOTES, 'UTF-8'); ?></td>
+                        <td><?= htmlspecialchars($registro['habito'], ENT_QUOTES, 'UTF-8'); ?></td>
                         <td class="text-center">
                             <?php if ($registro['cumplido']): ?>
                                 <span class="badge bg-success">Cumplido</span>

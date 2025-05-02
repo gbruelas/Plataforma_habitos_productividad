@@ -105,10 +105,10 @@
         <tbody>
             <?php foreach ($metas as $meta): ?>
                 <tr>
-                    <td class="text-center"><?= $meta['id'] ?></td>
-                    <td><?= $meta['nombre_habito'] ?></td>
-                    <td><?= $meta['cantidad_objetivo'] ?> veces</td>
-                    <td><?= ucfirst($meta['periodo']) ?></td>
+                    <td class="text-center"><?= htmlspecialchars($meta['id'], ENT_QUOTES, 'UTF-8'); ?></td>
+                    <td><?= htmlspecialchars($meta['nombre_habito'], ENT_QUOTES, 'UTF-8'); ?></td>
+                    <td><?= htmlspecialchars($meta['cantidad_objetivo'], ENT_QUOTES, 'UTF-8'); ?> veces</td>
+                    <td><?= htmlspecialchars(ucfirst($meta['periodo']), ENT_QUOTES, 'UTF-8'); ?></td>
                     <td class="text-center">
                         <a class="text-warning me-3" href="editar_meta.php?id=<?= $meta['id'] ?>" aria-label="Editar">
                             <i class="bi bi-pencil-square fs-5"></i>
