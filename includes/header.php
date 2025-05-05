@@ -33,7 +33,9 @@
                     </ul>
 
                     <div class="text-end">
-                        <a href="/proyecto_integrador/logout.php" class="btn btn-outline-danger me-2">Cerrar sesión</a>
+                        <a href="/proyecto_integrador/logout.php" class="btn btn-outline-danger me-2">
+                            <i class="bi bi-box-arrow-right"></i> Cerrar sesión
+                        </a>
                     </div>
                 </div>
             </div>

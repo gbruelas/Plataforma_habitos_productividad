@@ -73,21 +73,23 @@
 
     <h1 class="text-center">Mis hábitos</h1>
 
-    <nav class="navbar navbar-whitw bg-white">
-    <div class="container-fluid">
-        <form class="row g-2 align-items-center w-100" method="GET" action="index.php">
-            <div class="col-auto">
-                <label class="col-form-label">Buscar hábitos:</label>
-            </div>
-            <div class="col">
-                <input class="form-control" type="search" placeholder="Buscar" aria-label="Buscar" name="busqueda" value="<?= htmlspecialchars($_GET['busqueda'] ?? '') ?>">
-            </div>
-            <div class="col-auto">
-                <button class="btn btn-outline-success" type="submit">Buscar</button>
-            </div>
-        </form>
-    </div>
-    </nav>
+    <!-- Solo mostrar la barra de busqueda si hay metas o si ya se realizo una busqueda -->
+    <?php if (!empty($habitos) || $busqueda !== ''): ?>
+        <nav class="navbar navbar-white bg-white">
+        <div class="container-fluid">
+            <form class="row g-2 align-items-center w-100" method="GET" action="index.php">
+                <div class="col">
+                    <input class="form-control" type="search" placeholder="Buscar por nombre de hábito o descripción" aria-label="Buscar" name="busqueda" value="<?= htmlspecialchars($_GET['busqueda'] ?? '') ?>">
+                </div>
+                <div class="col-auto">
+                    <button class="btn btn-outline-success" type="submit">
+                        <i class="bi bi-search"></i> Buscar
+                    </button>
+                </div>
+            </form>
+        </div>
+        </nav>
+    <?php endif; ?>
 
     <!-- Mostrar mensajes de error-->
     <?php if (isset($_SESSION['error'])): ?>
@@ -107,61 +109,63 @@
         <?php unset($_SESSION['exito']); ?>
     <?php endif; ?>
 
-    <!-- Alert cuando no hay hábitos -->
-    <?php if (empty($habitos)): ?>
+    <!-- Alert cuando no hay hábitos (siempre y cuando no haya busquedas) -->
+    <?php if (empty($habitos) && $busqueda === ''): ?>
         <div class="alert alert-info">
             No tienes hábitos registrados aún. ¡Crea tu primer hábito!
         </div>
     <?php else: ?>
-
-        <table class="table table-bordered">
-        <caption>Lista de mis hábitos</caption>
-        <thead class="table-dark">
-            <tr>
-            <th scope="col" class="text-center col-1">ID</th>
-            <th scope="col" class="col-2">Nombre</th>
-            <th scope="col" class="col-3">Descripción</th>
-            <th scope="col" class="col-2">Frecuencia</th>
-            <th scope="col" class="col-3">Días específicos</th>
-            <th scope="col" class="text-center col-2">Fecha de creación</th>
-            <th scope="col" class="text-center col-1">Opciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Recorremos cada hábito y generamos una fila por cada uno -->
-            <?php foreach ($habitos as $habito): ?>
+        <!-- Se muestra la tabla en caso de haber -->
+        <div class="table-responsive">
+            <table class="table table-bordered">
+            <caption>Lista de mis hábitos</caption>
+            <thead class="table-dark">
                 <tr>
-                    <td class="text-center"><?= htmlspecialchars($habito['id'], ENT_QUOTES, 'UTF-8'); ?></td>
-                    <td><?= htmlspecialchars($habito['nombre_habito'], ENT_QUOTES, 'UTF-8'); ?></td>
-                    <td><?= htmlspecialchars($habito['descripcion'], ENT_QUOTES, 'UTF-8'); ?></td>
-                    <td>
-                        <?= htmlspecialchars($habito['frecuencia'], ENT_QUOTES, 'UTF-8'); ?>
-                        <?php if ($habito['cada_cuantos_dias']): ?>
-                            (cada <?= htmlspecialchars($habito['cada_cuantos_dias'], ENT_QUOTES, 'UTF-8'); ?> días)
-                        <?php endif; ?>
-                    </td>
-                    <td><?= htmlspecialchars($habito['dias_personalizados'] ?? 'N/A', ENT_QUOTES, 'UTF-8'); ?></td>
-                    <td class="text-center"><?= htmlspecialchars(date('d/m/Y', strtotime($habito['fecha_creacion'])), ENT_QUOTES, 'UTF-8'); ?></td>
-                    <td class="text-center">
-                    <!-- Botón para editar, enviando el ID del hábito por GET -->
-                    <a class="text-warning me-3" href="editar_habito.php?id=<?= $habito['id'] ?>" aria-label="Editar">
-                        <i class="bi bi-pencil-square fs-5"></i>
-                    </a>
-                    <!-- Botón para eliminar con confirmación -->
-                    <a
-                        href="#" 
-                        class="text-danger text-decoration-none"
-                        data-bs-toggle="modal" 
-                        data-bs-target="#confirmarEliminarModal"
-                        onclick="document.getElementById('btnEliminarConfirmado').href = 'eliminar_habito.php?id=<?= $habito['id'] ?>'"
-                        aria-label="Eliminar">
-                            <i class="bi bi-trash-fill fs-5"></i>
-                    </a>
-                    </td>
+                <th scope="col" class="text-center col-1">ID</th>
+                <th scope="col" class="col-2">Nombre</th>
+                <th scope="col" class="col-3">Descripción</th>
+                <th scope="col" class="col-2">Frecuencia</th>
+                <th scope="col" class="col-3">Días específicos</th>
+                <th scope="col" class="text-center col-2">Fecha de creación</th>
+                <th scope="col" class="text-center col-1">Opciones</th>
                 </tr>
-                <?php endforeach; ?>
-        </tbody>
-        </table>
+            </thead>
+            <tbody>
+                <!-- Recorremos cada hábito y generamos una fila por cada uno -->
+                <?php foreach ($habitos as $habito): ?>
+                    <tr>
+                        <td class="text-center"><?= htmlspecialchars($habito['id'], ENT_QUOTES, 'UTF-8'); ?></td>
+                        <td><?= htmlspecialchars($habito['nombre_habito'], ENT_QUOTES, 'UTF-8'); ?></td>
+                        <td><?= htmlspecialchars($habito['descripcion'], ENT_QUOTES, 'UTF-8'); ?></td>
+                        <td>
+                            <?= htmlspecialchars($habito['frecuencia'], ENT_QUOTES, 'UTF-8'); ?>
+                            <?php if ($habito['cada_cuantos_dias']): ?>
+                                (cada <?= htmlspecialchars($habito['cada_cuantos_dias'], ENT_QUOTES, 'UTF-8'); ?> días)
+                            <?php endif; ?>
+                        </td>
+                        <td><?= htmlspecialchars($habito['dias_personalizados'] ?? 'N/A', ENT_QUOTES, 'UTF-8'); ?></td>
+                        <td class="text-center"><?= htmlspecialchars(date('d/m/Y', strtotime($habito['fecha_creacion'])), ENT_QUOTES, 'UTF-8'); ?></td>
+                        <td class="text-center">
+                        <!-- Botón para editar, enviando el ID del hábito por GET -->
+                        <a class="text-warning me-3" href="editar_habito.php?id=<?= $habito['id'] ?>" aria-label="Editar">
+                            <i class="bi bi-pencil-square fs-5"></i>
+                        </a>
+                        <!-- Botón para eliminar con confirmación -->
+                        <a
+                            href="#"
+                            class="text-danger text-decoration-none"
+                            data-bs-toggle="modal"
+                            data-bs-target="#confirmarEliminarModal"
+                            onclick="document.getElementById('btnEliminarConfirmado').href = 'eliminar_habito.php?id=<?= $habito['id'] ?>'"
+                            aria-label="Eliminar">
+                                <i class="bi bi-trash-fill fs-5"></i>
+                        </a>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+            </tbody>
+            </table>
+        </div>
     <?php endif; ?>
 
     <!-- Botón flotante para agregar hábito -->

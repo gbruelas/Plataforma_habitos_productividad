@@ -50,21 +50,23 @@
 
     <h1 class="text-center">Mis metas</h1>
 
-    <nav class="navbar navbar-whitw bg-white">
-    <div class="container-fluid">
-        <form class="row g-2 align-items-center w-100" method="GET" action="index.php">
-            <div class="col-auto">
-                <label class="col-form-label">Buscar por nombre de hábito:</label>
-            </div>
-            <div class="col">
-                <input class="form-control" type="search" placeholder="Buscar" aria-label="Buscar" name="busqueda" value="<?= htmlspecialchars($_GET['busqueda'] ?? '') ?>">
-            </div>
-            <div class="col-auto">
-                <button class="btn btn-outline-success" type="submit">Buscar</button>
-            </div>
-        </form>
-    </div>
-    </nav>
+    <!-- Solo mostrar la barra de busqueda si hay metas o si ya se realizo una busqueda -->
+    <?php if (!empty($metas) || $busqueda !== ''): ?>
+        <nav class="navbar navbar-white bg-white">
+        <div class="container-fluid">
+            <form class="row g-2 align-items-center w-100" method="GET" action="index.php">
+                <div class="col">
+                    <input class="form-control" type="search" placeholder="Buscar por nombre de hábito" aria-label="Buscar" name="busqueda" value="<?= htmlspecialchars($_GET['busqueda'] ?? '') ?>">
+                </div>
+                <div class="col-auto">
+                    <button class="btn btn-outline-success" type="submit">
+                        <i class="bi bi-search"></i> Buscar
+                    </button>
+                </div>
+            </form>
+        </div>
+        </nav>
+    <?php endif; ?>
 
     <!-- Mostrar mensajes de error-->
     <?php if (isset($_SESSION['error'])): ?>
@@ -84,49 +86,51 @@
         <?php unset($_SESSION['exito']); ?>
     <?php endif; ?>
 
-    <!-- Alert si no hay metas -->
-    <?php if (empty($metas)): ?>
+    <!-- Alert si no hay metas (siempre y cuando no haya busqueda) -->
+    <?php if (empty($metas) && $busqueda === ''): ?>
         <div class="alert alert-info">
             No tienes metas registradas aún. ¡Crea tu primera meta!
         </div>
     <?php else: ?>
 
-        <table class="table table-bordered">
-        <caption>Lista de mis metas</caption>
-        <thead class="table-dark">
-            <tr>
-                <th scope="col" class="text-center col-1">ID</th>
-                <th scope="col" class="col-3">Hábito</th>
-                <th scope="col" class="col-2">Objetivo</th>
-                <th scope="col" class="col-2">Periodo</th>
-                <th scope="col" class="text-center col-1">Opciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($metas as $meta): ?>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+            <caption>Lista de mis metas</caption>
+            <thead class="table-dark">
                 <tr>
-                    <td class="text-center"><?= htmlspecialchars($meta['id'], ENT_QUOTES, 'UTF-8'); ?></td>
-                    <td><?= htmlspecialchars($meta['nombre_habito'], ENT_QUOTES, 'UTF-8'); ?></td>
-                    <td><?= htmlspecialchars($meta['cantidad_objetivo'], ENT_QUOTES, 'UTF-8'); ?> veces</td>
-                    <td><?= htmlspecialchars(ucfirst($meta['periodo']), ENT_QUOTES, 'UTF-8'); ?></td>
-                    <td class="text-center">
-                        <a class="text-warning me-3" href="editar_meta.php?id=<?= $meta['id'] ?>" aria-label="Editar">
-                            <i class="bi bi-pencil-square fs-5"></i>
-                        </a>
-                        <a 
-                            href="#" 
-                            class="text-danger text-decoration-none" 
-                            data-bs-toggle="modal" 
-                            data-bs-target="#confirmarEliminarModal"
-                            onclick="document.getElementById('btnEliminarConfirmado').href = 'eliminar_meta.php?id=<?= $meta['id'] ?>'"
-                            aria-label="Eliminar">
-                                <i class="bi bi-trash-fill fs-5"></i>
-                        </a>
-                    </td>
+                    <th scope="col" class="text-center col-1">ID</th>
+                    <th scope="col" class="col-3">Hábito</th>
+                    <th scope="col" class="col-2">Objetivo</th>
+                    <th scope="col" class="col-2">Periodo</th>
+                    <th scope="col" class="text-center col-1">Opciones</th>
                 </tr>
-            <?php endforeach; ?>
-        </tbody>
-        </table>
+            </thead>
+            <tbody>
+                <?php foreach ($metas as $meta): ?>
+                    <tr>
+                        <td class="text-center"><?= htmlspecialchars($meta['id'], ENT_QUOTES, 'UTF-8'); ?></td>
+                        <td><?= htmlspecialchars($meta['nombre_habito'], ENT_QUOTES, 'UTF-8'); ?></td>
+                        <td><?= htmlspecialchars($meta['cantidad_objetivo'], ENT_QUOTES, 'UTF-8'); ?> veces</td>
+                        <td><?= htmlspecialchars(ucfirst($meta['periodo']), ENT_QUOTES, 'UTF-8'); ?></td>
+                        <td class="text-center">
+                            <a class="text-warning me-3" href="editar_meta.php?id=<?= $meta['id'] ?>" aria-label="Editar">
+                                <i class="bi bi-pencil-square fs-5"></i>
+                            </a>
+                            <a
+                                href="#"
+                                class="text-danger text-decoration-none"
+                                data-bs-toggle="modal"
+                                data-bs-target="#confirmarEliminarModal"
+                                onclick="document.getElementById('btnEliminarConfirmado').href = 'eliminar_meta.php?id=<?= $meta['id'] ?>'"
+                                aria-label="Eliminar">
+                                    <i class="bi bi-trash-fill fs-5"></i>
+                            </a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+            </table>
+        </div>
     <?php endif; ?>
 
     <!-- Botón flotante para agregar meta -->

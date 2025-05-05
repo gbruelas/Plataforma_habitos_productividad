@@ -103,30 +103,32 @@
 
     <!-- Tabla -->
     <?php if ($total > 0): ?>
-        <table class="table table-bordered">
-            <thead class="table-dark">
-                <tr>
-                    <th scope="col" class="text-center col-1">Fecha</th>
-                    <th scope="col" class="col-5">Hábito</th>
-                    <th scope="col" class="text-center col-1">Estado</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($registros as $registro): ?>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead class="table-dark">
                     <tr>
-                        <td class="text-center"><?= htmlspecialchars(date('d/m/Y', strtotime($registro['fecha'])), ENT_QUOTES, 'UTF-8'); ?></td>
-                        <td><?= htmlspecialchars($registro['habito'], ENT_QUOTES, 'UTF-8'); ?></td>
-                        <td class="text-center">
-                            <?php if ($registro['cumplido']): ?>
-                                <span class="badge bg-success">Cumplido</span>
-                            <?php else: ?>
-                                <span class="badge bg-danger">Pendiente</span>
-                            <?php endif; ?>
-                        </td>
+                        <th scope="col" class="text-center col-1">Fecha</th>
+                        <th scope="col" class="col-5">Hábito</th>
+                        <th scope="col" class="text-center col-1">Estado</th>
                     </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <?php foreach ($registros as $registro): ?>
+                        <tr>
+                            <td class="text-center"><?= htmlspecialchars(date('d/m/Y', strtotime($registro['fecha'])), ENT_QUOTES, 'UTF-8'); ?></td>
+                            <td><?= htmlspecialchars($registro['habito'], ENT_QUOTES, 'UTF-8'); ?></td>
+                            <td class="text-center">
+                                <?php if ($registro['cumplido']): ?>
+                                    <span class="badge bg-success">Cumplido</span>
+                                <?php else: ?>
+                                    <span class="badge bg-danger">Pendiente</span>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
     <?php endif; ?>
 
     <!-- Gráfica -->

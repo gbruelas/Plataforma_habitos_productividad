@@ -56,17 +56,16 @@
 
     <h1 class="text-center">Lista de usuarios registrados</h1>
 
-    <nav class="navbar navbar-whitw bg-white">
+    <nav class="navbar navbar-white bg-white">
     <div class="container-fluid">
         <form class="row g-2 align-items-center w-100" method="GET" action="index.php">
-            <div class="col-auto">
-                <label class="col-form-label">Buscar por nombre o correo:</label>
-            </div>
             <div class="col">
-                <input class="form-control" type="search" placeholder="Buscar" aria-label="Buscar" name="busqueda" value="<?= htmlspecialchars($_GET['busqueda'] ?? '') ?>">
+                <input class="form-control" type="search" placeholder="Buscar por nombre o correo" aria-label="Buscar" name="busqueda" value="<?= htmlspecialchars($_GET['busqueda'] ?? '') ?>">
             </div>
             <div class="col-auto">
-                <button class="btn btn-outline-success" type="submit">Buscar</button>
+                <button class="btn btn-outline-success" type="submit">
+                    <i class="bi bi-search"></i> Buscar
+                </button>
             </div>
         </form>
     </div>
@@ -90,47 +89,49 @@
         <?php unset($_SESSION['exito']); ?>
     <?php endif; ?>
 
-    <table class="table table-bordered">
-    <caption>Lista de usuarios</caption>
-    <thead class="table-dark">
-        <tr>
-        <th scope="col" class="text-center col-1">ID</th>
-        <th scope="col" class="col-3">Nombre</th>
-        <th scope="col" class="col-4">Correo</th>
-        <th scope="col" class="text-center col-2">Rol</th>
-        <th scope="col" class="text-center col-2">Fecha de registro</th>
-        <th scope="col" class="text-center col-1">Opciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        <!-- Recorremos cada usuario y generamos una fila por cada uno -->
-        <?php foreach ($usuarios as $usuario): ?>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+        <caption>Lista de usuarios</caption>
+        <thead class="table-dark">
             <tr>
-                <td class="text-center"><?= htmlspecialchars($usuario['id'], ENT_QUOTES, 'UTF-8'); ?></td>
-                <td><?= htmlspecialchars($usuario['nombre_usuario'], ENT_QUOTES, 'UTF-8'); ?></td>
-                <td><?= htmlspecialchars($usuario['correo'], ENT_QUOTES, 'UTF-8'); ?></td>
-                <td class="text-center"><?= htmlspecialchars($usuario['nombre_rol'], ENT_QUOTES, 'UTF-8'); ?></td>
-                <td class="text-center"><?= htmlspecialchars(date('d/m/Y h:i:s A', strtotime($usuario['fecha_registro'])), ENT_QUOTES, 'UTF-8'); ?></td>
-                <td class="text-center">
-                <!-- Botón para editar, enviando el ID del usuario por GET -->
-                <a class="text-warning me-3" href="editar_usuario.php?id=<?= $usuario['id'] ?>" aria-label="Editar">
-                    <i class="bi bi-pencil-square fs-5"></i>
-                </a>
-                <!-- Botón para eliminar con confirmación -->
-                <a 
-                    href="#" 
-                    class="text-danger text-decoration-none"
-                    data-bs-toggle="modal" 
-                    data-bs-target="#confirmarEliminarModal"
-                    onclick="document.getElementById('btnEliminarConfirmado').href = 'eliminar_usuario.php?id=<?= $usuario['id'] ?>'"
-                    aria-label="Eliminar">
-                        <i class="bi bi-trash-fill fs-5"></i>
-                </a>
-                </td>
+            <th scope="col" class="text-center col-1">ID</th>
+            <th scope="col" class="col-3">Nombre</th>
+            <th scope="col" class="col-4">Correo</th>
+            <th scope="col" class="text-center col-2">Rol</th>
+            <th scope="col" class="text-center col-2">Fecha de registro</th>
+            <th scope="col" class="text-center col-1">Opciones</th>
             </tr>
-            <?php endforeach; ?>
-    </tbody>
-    </table>
+        </thead>
+        <tbody>
+            <!-- Recorremos cada usuario y generamos una fila por cada uno -->
+            <?php foreach ($usuarios as $usuario): ?>
+                <tr>
+                    <td class="text-center"><?= htmlspecialchars($usuario['id'], ENT_QUOTES, 'UTF-8'); ?></td>
+                    <td><?= htmlspecialchars($usuario['nombre_usuario'], ENT_QUOTES, 'UTF-8'); ?></td>
+                    <td><?= htmlspecialchars($usuario['correo'], ENT_QUOTES, 'UTF-8'); ?></td>
+                    <td class="text-center"><?= htmlspecialchars($usuario['nombre_rol'], ENT_QUOTES, 'UTF-8'); ?></td>
+                    <td class="text-center"><?= htmlspecialchars(date('d/m/Y h:i:s A', strtotime($usuario['fecha_registro'])), ENT_QUOTES, 'UTF-8'); ?></td>
+                    <td class="text-center">
+                    <!-- Botón para editar, enviando el ID del usuario por GET -->
+                    <a class="text-warning me-3" href="editar_usuario.php?id=<?= $usuario['id'] ?>" aria-label="Editar">
+                        <i class="bi bi-pencil-square fs-5"></i>
+                    </a>
+                    <!-- Botón para eliminar con confirmación -->
+                    <a
+                        href="#"
+                        class="text-danger text-decoration-none"
+                        data-bs-toggle="modal"
+                        data-bs-target="#confirmarEliminarModal"
+                        onclick="document.getElementById('btnEliminarConfirmado').href = 'eliminar_usuario.php?id=<?= $usuario['id'] ?>'"
+                        aria-label="Eliminar">
+                            <i class="bi bi-trash-fill fs-5"></i>
+                    </a>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+        </tbody>
+        </table>
+    </div>
 
     <!-- Botón flotante para agregar usuario -->
     <a href="agregar_usuario.php" class="btn btn-success rounded-circle fab-button">
