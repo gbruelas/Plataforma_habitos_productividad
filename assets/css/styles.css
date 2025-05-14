@@ -71,16 +71,6 @@
         display: none;
     }
     
-    .navbar-collapse.collapse.show {
-        background-color: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        padding: 1rem;
-        margin-top: 1rem;
-        border-radius: 0.5rem;
-        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-    }
-    
     .nav.flex-column {
         flex-direction: column !important;
     }
