@@ -75,7 +75,7 @@
 
     <!-- Solo mostrar la barra de busqueda si hay metas o si ya se realizo una busqueda -->
     <?php if (!empty($habitos) || $busqueda !== ''): ?>
-        <nav class="navbar navbar-white bg-white">
+        <nav class="navbar navbar-white">
         <div class="container-fluid">
             <form class="row g-2 align-items-center w-100" method="GET" action="index.php">
                 <div class="col">
@@ -187,7 +187,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <a id="btnEliminarConfirmado" class="btn btn-danger">Sí, Eliminar</a>
+                    <a id="btnEliminarConfirmado" class="btn btn-danger">Sí, eliminar</a>
                 </div>
             </div>
         </div>

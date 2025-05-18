@@ -1,3 +1,9 @@
+/* Para los cards de la página principal (sin iniciar sesión) */
+.custom-card-width {
+    width: 26rem;
+    max-width: 100%; /* Para que sea responsive */
+}
+
 /* Darle efecto blur al header (menú) cuando hace scroll */
 .header-scroll-blur {
     background-color: rgba(255, 255, 255, 0.8) !important;
@@ -39,6 +45,11 @@
 .fab-button:hover {
     transform: translateY(-2px);
     box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Para que la barra de progreso del inicio no se vea tan pequeña */
+.custom-progress{
+    height: 25px;
 }
 
 /* Botón responsivo para pantallas medianas */
@@ -88,5 +99,9 @@
     /* Sección actual en pantallas pequeñas */
     .d-lg-none.fs-5 {
         padding-left: 0.5rem;
+    }
+
+    .burger-size{
+        font-size: 1.5rem;
     }
 }

@@ -55,7 +55,7 @@
                     
                     <!-- Botón hamburguesa (solo para pantallas pequeñas) -->
                     <button class="navbar-toggler ms-2 d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                        <i class="bi bi-list" style="font-size: 1.5rem;"></i>
+                        <i class="bi bi-list burger-size"></i>
                     </button>
                     
                     <!-- Menú colapsable (para pantallas pequeñas) -->

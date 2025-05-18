@@ -59,10 +59,10 @@
 
 <!-- Restablecer contraseña con un card -->
 <div class="container d-flex align-items-center justify-content-center min-vh-100">
-    <div class="card border-0 shadow-lg" style="width: 26rem;">
+    <div class="card border-0 shadow-lg custom-card-width">
         <div class="card-body p-5">
             <div class="text-center mb-4">
-                <h2 class="fw-bold text-dark">RESTABLECER CONTRASEÑA</h2>
+                <h2 class="fw-bold">RESTABLECER CONTRASEÑA</h2>
                 <p class="text-muted">Ingresa una contraseña nueva</p>
 
                 <!-- Mostrar mensajes de error-->

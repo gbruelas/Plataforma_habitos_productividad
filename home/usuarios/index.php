@@ -56,7 +56,7 @@
 
     <h1 class="text-center">Lista de usuarios registrados</h1>
 
-    <nav class="navbar navbar-white bg-white">
+    <nav class="navbar navbar-white">
     <div class="container-fluid">
         <form class="row g-2 align-items-center w-100" method="GET" action="index.php">
             <div class="col">
@@ -152,7 +152,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <a id="btnEliminarConfirmado" class="btn btn-danger">Sí, Eliminar</a>
+                    <a id="btnEliminarConfirmado" class="btn btn-danger">Sí, eliminar</a>
                 </div>
             </div>
         </div>

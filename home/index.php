@@ -191,7 +191,7 @@
     <?php else: ?>
         <!-- Si si hay habitos para hoy: -->
         <!-- Barra de progreso -->
-        <div class="progress mb-4">
+        <div class="progress mb-4 custom-progress">
             <div class="progress-bar bg-success" style="width: <?= $porcentaje ?>%;">
                 <?= $porcentaje ?>% completado
             </div>

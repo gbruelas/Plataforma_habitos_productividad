@@ -17,12 +17,12 @@
 </head>
 <body>
 
-<!-- Login con un card -->
+<!-- Olvidaste tu contraseña con un card -->
 <div class="container d-flex align-items-center justify-content-center min-vh-100">
-    <div class="card border-0 shadow-lg" style="width: 26rem;">
+    <div class="card border-0 shadow-lg custom-card-width">
         <div class="card-body p-5">
             <div class="text-center mb-4">
-                <h2 class="fw-bold text-dark">¿OLVIDASTE TU CONTRASEÑA?</h2>
+                <h2 class="fw-bold">¿OLVIDASTE TU CONTRASEÑA?</h2>
                 <p class="text-muted">Ingresa el correo de tu cuenta</p>
 
                 <!-- Mostrar mensajes de error-->
