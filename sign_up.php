@@ -40,8 +40,8 @@
             <form action="procesar_usuario.php" method="post">
                 
                 <div class="mb-3 ">
-                    <label for="nombre" class="form-label">Nombre de usuario</label>
-                    <input type="text" class="form-control form-control-lg" id="nombre" name="nombre" placeholder="Nombre de usuario" required>
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control form-control-lg" id="nombre" name="nombre" placeholder="Nombre" required>
                 </div>
 
                 <div class="mb-3 ">

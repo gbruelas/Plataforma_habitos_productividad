@@ -176,7 +176,7 @@
                 </select>
             </div>
             
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
                 <a href="index.php" class="btn btn-secondary me-md-2">Cancelar</a>
                 <button type="submit" class="btn btn-primary">Guardar cambios</button>
             </div>

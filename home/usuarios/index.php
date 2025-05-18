@@ -94,11 +94,11 @@
         <caption>Lista de usuarios</caption>
         <thead class="table-dark">
             <tr>
-            <th scope="col" class="text-center col-1">ID</th>
+            <th scope="col" class="text-center col-1 d-none d-md-table-cell">ID</th>
             <th scope="col" class="col-3">Nombre</th>
-            <th scope="col" class="col-4">Correo</th>
+            <th scope="col" class="col-4 d-none d-md-table-cell">Correo</th>
             <th scope="col" class="text-center col-2">Rol</th>
-            <th scope="col" class="text-center col-2">Fecha de registro</th>
+            <th scope="col" class="text-center col-2 d-none d-md-table-cell">Fecha de registro</th>
             <th scope="col" class="text-center col-1">Opciones</th>
             </tr>
         </thead>
@@ -106,11 +106,11 @@
             <!-- Recorremos cada usuario y generamos una fila por cada uno -->
             <?php foreach ($usuarios as $usuario): ?>
                 <tr>
-                    <td class="text-center"><?= htmlspecialchars($usuario['id'], ENT_QUOTES, 'UTF-8'); ?></td>
+                    <td class="text-center d-none d-md-table-cell"><?= htmlspecialchars($usuario['id'], ENT_QUOTES, 'UTF-8'); ?></td>
                     <td><?= htmlspecialchars($usuario['nombre_usuario'], ENT_QUOTES, 'UTF-8'); ?></td>
-                    <td><?= htmlspecialchars($usuario['correo'], ENT_QUOTES, 'UTF-8'); ?></td>
+                    <td class="d-none d-md-table-cell"><?= htmlspecialchars($usuario['correo'], ENT_QUOTES, 'UTF-8'); ?></td>
                     <td class="text-center"><?= htmlspecialchars($usuario['nombre_rol'], ENT_QUOTES, 'UTF-8'); ?></td>
-                    <td class="text-center"><?= htmlspecialchars(date('d/m/Y h:i:s A', strtotime($usuario['fecha_registro'])), ENT_QUOTES, 'UTF-8'); ?></td>
+                    <td class="text-center d-none d-md-table-cell"><?= htmlspecialchars(date('d/m/Y h:i:s A', strtotime($usuario['fecha_registro'])), ENT_QUOTES, 'UTF-8'); ?></td>
                     <td class="text-center">
                     <!-- Botón para editar, enviando el ID del usuario por GET -->
                     <a class="text-warning me-3" href="editar_usuario.php?id=<?= $usuario['id'] ?>" aria-label="Editar">

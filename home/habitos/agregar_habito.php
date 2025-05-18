@@ -196,9 +196,9 @@
                 </div>
             </div>
                 
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <a href="index.php" class="btn btn-secondary me-md-2 mb-3">Cancelar</a>
-            <button type="submit" class="btn btn-primary mb-3">Guardar</button>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
+            <a href="index.php" class="btn btn-secondary me-md-2">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Guardar</button>
         </div>
     </form>
 </main>

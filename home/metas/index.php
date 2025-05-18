@@ -98,7 +98,7 @@
             <caption>Lista de mis metas</caption>
             <thead class="table-dark">
                 <tr>
-                    <th scope="col" class="text-center col-1">ID</th>
+                    <th scope="col" class="text-center col-1 d-none d-md-table-cell">ID</th>
                     <th scope="col" class="col-3">Hábito</th>
                     <th scope="col" class="col-2">Objetivo</th>
                     <th scope="col" class="col-2">Periodo</th>
@@ -108,7 +108,7 @@
             <tbody>
                 <?php foreach ($metas as $meta): ?>
                     <tr>
-                        <td class="text-center"><?= htmlspecialchars($meta['id'], ENT_QUOTES, 'UTF-8'); ?></td>
+                        <td class="text-center d-none d-md-table-cell"><?= htmlspecialchars($meta['id'], ENT_QUOTES, 'UTF-8'); ?></td>
                         <td><?= htmlspecialchars($meta['nombre_habito'], ENT_QUOTES, 'UTF-8'); ?></td>
                         <td><?= htmlspecialchars($meta['cantidad_objetivo'], ENT_QUOTES, 'UTF-8'); ?> veces</td>
                         <td><?= htmlspecialchars(ucfirst($meta['periodo']), ENT_QUOTES, 'UTF-8'); ?></td>
