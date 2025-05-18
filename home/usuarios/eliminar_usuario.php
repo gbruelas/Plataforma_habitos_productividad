@@ -48,7 +48,7 @@
 
     } catch (PDOException $e) {
         // Capturamos y mostramos errores de base de datos si ocurren
-        $_SESSION["error"] = "Error PDO: " . $e->getMessage();
+        $_SESSION["error"] = "Error con la base de datos. Intentalo más tarde.";
         header("Location: index.php");
         exit();  
     }

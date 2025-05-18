@@ -125,7 +125,7 @@
 
     } catch (PDOException $e) {
         // Si ocurre un error con la base de datos, lo mostramos  
-        $_SESSION['error'] = 'Error PDO: ' . $e->getMessage();
+        $_SESSION['error'] = "Error con la base de datos. Intentalo más tarde.";
         header("Location: sign_up.php");
         exit();
     }

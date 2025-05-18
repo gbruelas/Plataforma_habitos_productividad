@@ -111,7 +111,7 @@
             exit();
 
         } catch (Exception $e) {
-            $_SESSION['error'] = "Error al registrar hábito: " . $e->getMessage();
+            $_SESSION['error'] = "Error con la base de datos. Intentalo más tarde.";
             header("Location: agregar_habito.php");
             exit();
         }

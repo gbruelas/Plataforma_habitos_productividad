@@ -65,7 +65,7 @@
             exit();
 
         } catch (PDOException $e) {
-            $_SESSION['error'] = "Error al crear la meta: " . $e->getMessage();
+            $_SESSION['error'] = "Error con la base de datos. Intentalo más tarde.";
             header("Location: agregar_meta.php");
             exit();
         }
