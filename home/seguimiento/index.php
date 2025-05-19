@@ -86,7 +86,7 @@
     <!-- Resumen -->
     <div class="alert alert-info">
         <?php if ($total > 0): ?>
-            <strong><?= $completados ?></strong> de <strong><?= $total ?></strong> hábitos completados (<?= $porcentaje ?>%).
+            <span class="fw-bold"><?= $completados ?></span> de <span class="fw-bold"><?= $total ?></span> hábitos completados (<?= $porcentaje ?>%).
         <?php else: ?>
             No hay registros para este periodo.
         <?php endif; ?>
